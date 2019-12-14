@@ -8,7 +8,7 @@ function DB() {
     this.getUserText = hash => {
         return new Promise(resolve => {
             db.serialize(() => {
-                const query = "SELECT user_id, order, text FROM task WHERE hash=?";
+                const query = 'SELECT user_id, "order", text FROM task WHERE hash=?';
                 db.get(query, [hash], (err, row) => resolve(err ? null : row));
             });
         });
@@ -23,12 +23,38 @@ function DB() {
         });
     };
 
+    function getUserTasks(id) {
+        return new Promise(resolve => {
+            db.serialize(() => {
+                const query = 'SELECT text, "order", hash FROM task WHERE user_id=?';
+                db.all(query, [id], (err, rows) => resolve(err ? null : rows));
+            });
+        })
+    }
+
     this.getUsersInfo = () => {
         return new Promise(resolve => {
             db.serialize(() => {
-                const query = "SELECT name, progress, text, 'order', hash FROM user JOIN task ON (task.user_id = user.id)";
-                db.all(query, [], (err, rows) => resolve(err ? null : rows));
+                const query = 'SELECT id, name, progress FROM user';
+                db.all(query, [], (err, rows) => {
+                    if (rows && rows.length) {
+                        const result = rows.map(async (user) => ({
+                            ...user,
+                            tasks: await getUserTasks(user.id),
+                        }));
+                        Promise.all(result).then(value => resolve(value))
+                    } else {
+                        resolve(null)
+                    }
+                });
             });
+        });
+    };
+
+    this.updateUserProgress = (userId, newProgress) => {
+        db.serialize(() => {
+            const query = 'UPDATE user SET progress=? WHERE id=?';
+            db.run(query, [newProgress, userId]);
         });
     };
 
