@@ -1,8 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
+const API = require('./API');
+const ApiAnswer = require('./ApiAnswer');
+
 function Router(options) {
     options = (options instanceof Object) ? options : {};
+
+    const apiAnswer = new ApiAnswer();
+
+    router.get(API.GET_USERS_LIST_WITH_PROGRESS, (req, res) => {
+        res.send(apiAnswer.answer('some data'));
+    });
+
+    router.get(API.GET_TEXT_BY_HASH, (req, res) => {
+        res.send(apiAnswer.answer('some data'));
+    });
 
     return router;
 }
