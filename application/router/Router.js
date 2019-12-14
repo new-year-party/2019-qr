@@ -4,8 +4,8 @@ const router = express.Router();
 const API = require('./API');
 const ApiAnswer = require('./ApiAnswer');
 
-function Router(options) {
-    options = (options instanceof Object) ? options : {};
+function Router(options = {}) {
+    const service = options.service;
 
     const apiAnswer = new ApiAnswer();
 
