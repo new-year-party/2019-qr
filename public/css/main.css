@@ -1,0 +1,42 @@
+body {
+    overflow: hidden;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    background-image: url("../assets/h343w441.jpg");
+    background-repeat: no-repeat;
+    width: auto;
+    height: 882px;
+    background-size: contain;
+    padding: 20%;
+}
+
+.block-circle {
+    width: 92%;
+    height: 65%;
+    /*background-color: aqua;*/
+    position: inherit;
+    top: 3%;
+    left: 4%;
+    border-radius: 53% 53% 43% 45%;
+}
+
+.text-block{
+    font-family: 'Pangolin', cursive;
+    text-align: center;
+    overflow: visible;
+    color: #72757B;
+
+    font-size: 300%;
+    position: inherit;
+    line-height: 1.5;
+    /*background-color: blue;*/
+    padding-top: 40%;
+}
