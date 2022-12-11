@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/new-year-party/2019-qr#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "http": "0.0.0",
     "md5": "^2.2.1",
     "sqlite3": "^4.1.0"
